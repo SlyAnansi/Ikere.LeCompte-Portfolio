@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikere - Full-Stack Developer & Systems Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0a1628;
+            --dark-navy: #050b14;
+            --electric: #00ffcc;
+            --electric-glow: rgba(0, 255, 204, 0.3);
+            --orange: #ff6b35;
+            --slate: #8892b0;
+            --light-slate: #ccd6f6;
+            --white: #e6f1ff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--dark-navy);
+            color: var(--slate);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background: rgba(10, 22, 40, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.1);
+            z-index: 1000;
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            color: var(--electric);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 20px var(--electric-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-slate);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--electric);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 0 4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-label {
+            font-size: 1rem;
+            color: var(--electric);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--slate);
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--electric);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--electric);
+            color: var(--dark-navy);
+            box-shadow: 0 0 30px var(--electric-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px var(--electric-glow);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--electric);
+            color: var(--electric);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 204, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease both;
+        }
+
+        .section-number {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1rem;
+            color: var(--electric);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--slate);
+            max-width: 600px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-text strong {
+            color: var(--electric);
+            font-weight: 600;
+        }
+
+        .experience-card {
+            background: rgba(10, 22, 40, 0.6);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateX(10px);
+            border-color: var(--electric);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+        }
+
+        .experience-card h3 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .company {
+            color: var(--electric);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .date {
+            color: var(--slate);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(10, 22, 40, 0.6);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--electric);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15);
+        }
+
+        .skill-category h3 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: var(--slate);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--electric);
+            font-size: 1.2rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: rgba(10, 22, 40, 0.6);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--electric);
+            box-shadow: 0 20px 50px rgba(0, 255, 204, 0.2);
+        }
+
+        .project-info {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-label {
+            color: var(--electric);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card h3 {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: var(--electric);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--electric);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            transform: translateX(5px);
+        }
+
+        .project-visual {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(255, 107, 53, 0.1));
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 204, 0.03) 2px,
+                    rgba(0, 255, 204, 0.03) 4px
+                );
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .project-icon {
+            font-size: 5rem;
+            opacity: 0.3;
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: rgba(10, 22, 40, 0.6);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: var(--electric);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15);
+        }
+
+        .cert-card h4 {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            color: var(--electric);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-content h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+
+        .contact-content p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .contact-btn {
+            padding: 1.2rem 2.5rem;
+            background: rgba(0, 255, 204, 0.1);
+            border: 2px solid var(--electric);
+            color: var(--electric);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-btn:hover {
+            background: var(--electric);
+            color: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--electric-glow);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(0, 255, 204, 0.1);
+            color: var(--slate);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Animations on Scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 968px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 6rem 0 3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-card {
+                grid-template-columns: 1fr;
+            }
+
+            .project-visual {
+                min-height: 200px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">IKERE</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-label">Full-Stack Developer</span>
+                <h1>Building Digital<br/>Solutions That<br/><span class="highlight">Matter</span></h1>
+                <h2>U.S. Marine Corps Veteran | Systems Engineer | Web Developer</h2>
+                <p>
+                    Transitioning from 8 years of military service and technical support to building 
+                    scalable web applications. I create solutions that solve real problems with 
+                    clean code and thoughtful design.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">01.</div>
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    From serving in the Marines to building the future of web technology
+                </p>
+            </div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <p>
+                        I'm a <strong>U.S. Marine Corps veteran</strong> with 8 years of proven experience 
+                        in complex technical problem-solving, system administration, and team leadership. 
+                        My journey from military service to software development has equipped me with 
+                        discipline, adaptability, and a relentless drive to solve challenging problems.
+                    </p>
+                    <p>
+                        Currently serving in the <strong>Army National Guard</strong> as an IT Specialist 
+                        while working as a Tier 2 Technical Support Specialist at Axelon Services Corporation, 
+                        supporting Bank of America systems. I'm actively building my development portfolio and 
+                        seeking junior developer positions.
+                    </p>
+                    <p>
+                        I specialize in building <strong>full-stack web applications</strong> with Python, 
+                        JavaScript, and modern frameworks. My technical background in cloud platforms, 
+                        automation, and system architecture gives me a unique perspective on building 
+                        scalable, reliable software.
+                    </p>
+                </div>
+                <div class="about-timeline fade-in">
+                    <div class="experience-card">
+                        <h3>Tier 2 Technical Support Specialist</h3>
+                        <div class="company">Axelon Services Corporation</div>
+                        <div class="date">2022 - Present</div>
+                        <p>Supporting Bank of America systems with automation, troubleshooting, and technical solutions</p>
+                    </div>
+                    <div class="experience-card">
+                        <h3>Information Technology Specialist</h3>
+                        <div class="company">Army National Guard</div>
+                        <div class="date">2022 - Present</div>
+                        <p>Network administration, automation scripting, and system deployments</p>
+                    </div>
+                    <div class="experience-card">
+                        <h3>Technical Support Technician</h3>
+                        <div class="company">U.S. Marine Corps</div>
+                        <div class="date">2018 - 2022</div>
+                        <p>Network infrastructure, system security, and technical team leadership</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">02.</div>
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">
+                    A comprehensive toolkit built through hands-on experience and continuous learning
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category fade-in">
+                    <h3><span class="skill-icon">💻</span> Languages</h3>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>HTML5 & CSS3</li>
+                        <li>PHP</li>
+                        <li>Java</li>
+                        <li>PowerShell</li>
+                        <li>Bash</li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3><span class="skill-icon">🛠️</span> Frameworks & Tools</h3>
+                    <ul class="skill-list">
+                        <li>Streamlit</li>
+                        <li>Flask</li>
+                        <li>React (learning)</li>
+                        <li>Laravel (learning)</li>
+                        <li>Git & GitHub</li>
+                        <li>VS Code</li>
+                        <li>N8n Workflow Automation</li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3><span class="skill-icon">☁️</span> Cloud & Infrastructure</h3>
+                    <ul class="skill-list">
+                        <li>AWS (EC2, S3, CloudWatch)</li>
+                        <li>Azure & Azure AD</li>
+                        <li>Oracle Cloud Infrastructure</li>
+                        <li>Docker (learning)</li>
+                        <li>System Administration</li>
+                        <li>Network Configuration</li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3><span class="skill-icon">🗄️</span> Database & APIs</h3>
+                    <ul class="skill-list">
+                        <li>MySQL</li>
+                        <li>PostgreSQL</li>
+                        <li>JSON Data Management</li>
+                        <li>REST APIs</li>
+                        <li>Webhook Integration</li>
+                        <li>API Development</li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3><span class="skill-icon">🔧</span> DevOps & Automation</h3>
+                    <ul class="skill-list">
+                        <li>Automated Deployments</li>
+                        <li>CI/CD Concepts</li>
+                        <li>Scripting & Automation</li>
+                        <li>System Monitoring</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category fade-in">
+                    <h3><span class="skill-icon">🎨</span> Development Practices</h3>
+                    <ul class="skill-list">
+                        <li>Responsive Design</li>
+                        <li>User Authentication</li>
+                        <li>Clean Code Principles</li>
+                        <li>Technical Documentation</li>
+                        <li>Problem Solving</li>
+                        <li>Team Collaboration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">03.</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">
+                    Real applications solving real problems with modern technology
+                </p>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <div class="project-label">Web Application</div>
+                        <h3>LinkedIn Post Generator</h3>
+                        <p>
+                            Full-stack AI-powered content generation platform built with Python and Streamlit. 
+                            Features user authentication, session management, webhook integration for automated 
+                            content processing, and 8 different post generation algorithms based on engagement patterns.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">REST APIs</span>
+                            <span class="tech-tag">JSON</span>
+                            <span class="tech-tag">CSS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://linkedin-post-generator-ao8jqjdjy8tdsawokcarj4.streamlit.app" class="project-link" target="_blank" rel="noopener noreferrer">View Live →</a>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <span class="project-icon">🚀</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <div class="project-label">Networking Platform</div>
+                        <h3>ElectricianConnect</h3>
+                        <p>
+                            Professional networking platform specifically designed for electricians and skilled trades. 
+                            Includes technical forums for Q&A, tool reviews, safety discussions, and a specialized 
+                            job board that understands industry-specific needs.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <span class="project-icon">⚡</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <div class="project-label">Finance Application</div>
+                        <h3>Personal Finance Tracker</h3>
+                        <p>
+                            Web-based financial management application built with Flask. Features expense tracking, 
+                            budget management, data visualization, and comprehensive reporting to help users manage 
+                            their finances effectively.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">SQLite</span>
+                            <span class="tech-tag">Chart.js</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <span class="project-icon">💰</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <div class="project-label">Browser Extension</div>
+                        <h3>Resume Tailoring Assistant</h3>
+                        <p>
+                            Browser extension that helps job seekers tailor their resumes to specific job postings. 
+                            Analyzes job descriptions, suggests relevant keywords, and provides optimization 
+                            recommendations to improve application success rates.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">Chrome APIs</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <span class="project-icon">📄</span>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <div class="project-label">Automation Tools</div>
+                        <h3>Desktop Automation Suite</h3>
+                        <p>
+                            Collection of Python automation tools for desktop management including file organization, 
+                            system monitoring, and finance tracking. Reduces manual tasks and improves productivity 
+                            through intelligent automation.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">PowerShell</span>
+                            <span class="tech-tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <span class="project-icon">🤖</span>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <div class="project-label">Game Development</div>
+                        <h3>Roguelike Action Game</h3>
+                        <p>
+                            Hades-style top-down action roguelike developed in Godot. Features enemy AI, 
+                            combat systems, room progression, and procedural generation. Demonstrates 
+                            game development fundamentals and object-oriented programming.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Godot</span>
+                            <span class="tech-tag">GDScript</span>
+                            <span class="tech-tag">Game Design</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <span class="project-icon">🎮</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">04.</div>
+                <h2 class="section-title">Certifications</h2>
+                <p class="section-subtitle">
+                    Professional credentials demonstrating technical expertise
+                </p>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-card fade-in">
+                    <h4>Security+</h4>
+                    <div class="cert-issuer">CompTIA</div>
+                </div>
+                <div class="cert-card fade-in">
+                    <h4>Network+</h4>
+                    <div class="cert-issuer">CompTIA</div>
+                </div>
+                <div class="cert-card fade-in">
+                    <h4>A+</h4>
+                    <div class="cert-issuer">CompTIA</div>
+                </div>
+                <div class="cert-card fade-in">
+                    <h4>Cloud+</h4>
+                    <div class="cert-issuer">CompTIA</div>
+                </div>
+                <div class="cert-card fade-in">
+                    <h4>OCI AI Foundations</h4>
+                    <div class="cert-issuer">Oracle</div>
+                </div>
+                <div class="cert-card fade-in">
+                    <h4>OCI Foundations</h4>
+                    <div class="cert-issuer">Oracle</div>
+                </div>
+                <div class="cert-card fade-in">
+                    <h4>ITIL 4 Foundations</h4>
+                    <div class="cert-issuer">ITIL</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <!-- 
+        TO UPDATE YOUR CONTACT INFO:
+        Replace the href values below with your actual links:
+        1. Email: Change "your.email@example.com" to your real email
+        2. LinkedIn: Change the entire URL to your LinkedIn profile (example: https://linkedin.com/in/john-doe)
+        3. GitHub: Change the entire URL to your GitHub profile (example: https://github.com/johndoe)
+        
+        Make sure to keep target="_blank" and rel="noopener noreferrer" for external links!
+    -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content fade-in">
+                <div class="section-number">05.</div>
+                <h2>Let's Build Something Together</h2>
+                <p>
+                    I'm actively seeking junior developer positions and freelance opportunities. 
+                    Whether you have a project in mind, want to collaborate, or just want to 
+                    connect, I'd love to hear from you.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:your.email@example.com" class="contact-btn">
+                        📧 Email Me
+                    </a>
+                    <a href="https://www.linkedin.com/in/ikerelecompte/" class="contact-btn" target="_blank" rel="noopener noreferrer">
+                        💼 LinkedIn
+                    </a>
+                    <a href="https://github.com/SlyAnansi" class="contact-btn" target="_blank" rel="noopener noreferrer">
+                        💻 GitHub
+                    </a>
+                </div>
+                <p style="margin-top: 2rem; font-size: 1rem;">
+                    📍 Based in Wilmington, DE | Open to remote opportunities
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Ikere. Built with dedication and passion for creating meaningful digital solutions.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Header background on scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 22, 40, 0.95)';
+                header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.background = 'rgba(10, 22, 40, 0.9)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scrolling for INTERNAL navigation links only (not external links)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                // Only apply smooth scroll to section anchors, not # alone
+                if (href && href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
